@@ -110,6 +110,36 @@ class Getnet
 
         return $response->getBody()->getContents();
     }
+
+    public function getToken(string $cardNumber, ?string $sellerId = null, ?string $customerId = null){
+        $client = new \GuzzleHttp\Client();
+
+        $headers = [
+            'authorization' => "Bearer " . $this->accessToken,
+            'content-type' => 'application/json; charset=utf-8',
+        ];
+
+        if ($sellerId){
+            $headers['seller_id'] = $sellerId;
+        }
+
+        $json = [
+            'card_number' => $cardNumber
+        ];
+
+        if ($customerId){
+            $json['customer_id'] = $customerId;
+        }
+
+        $response = $client->request('POST', $this->baseUrl . '/v1/tokens/card', [
+            'verify' => false,
+            'debug' => $this->debug,
+            'headers' => $headers,
+            'json' => $json
+        ]);
+
+        return $response->getBody()->getContents();
+    }
 }
 
 

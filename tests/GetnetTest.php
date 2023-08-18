@@ -45,7 +45,16 @@ class GetnetTest extends TestCase
         $customer = new Customer('1086', $billingAddress, $firstName, 'da Silva', $name, $email, 'CPF', '12345678912', $phoneNumber);
         
         // Setup Card / Credit
-        $numberToken = 'dfe05208b105578c070f806c80abd3af09e246827d29b866cf4ce16c205849977c9496cbf0d0234f42339937f327747075f68763537b90b31389e01231d4d13c';
+        try {
+            $cardNumber = '5155901222280001';
+            $response = json_decode($getnet->getToken($cardNumber, $sellerId));
+            $numberToken = $response->number_token;
+        }
+        catch (\GuzzleHttp\Exception\RequestException $requestException) {
+            print_r($requestException->getResponse()->getBody()->getContents());
+            //throw $th;
+        }
+
         $card = new Card($numberToken, 'JOAO DA SILVA', '123', 'Mastercard', '12', '28');
         $credit = new Credit(false, false, false, "FULL", 1, 'LOJA*TESTE*COMPRA-123', 1799, $card, 'ONE_CLICK_PAYMENT', '1002217281190421');
 
