@@ -2,6 +2,11 @@
     "name": "vinyvic/getnet-api",
     "description": "Integração PHP com a Plataforma Digital da Getnet E-Commerce WEB via API",
     "type": "library",
+    "keywords": [
+        "api",
+        "getnet",
+        "php"
+    ],
     "require": {
         "guzzlehttp/guzzle": "^7.7",
         "php": "^8.1"
