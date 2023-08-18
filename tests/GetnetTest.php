@@ -57,7 +57,7 @@ class GetnetTest extends TestCase
             //throw $th;
         }
 
-        $card = new Card($numberToken, 'JOAO DA SILVA', '123', 'Mastercard', '12', '28');
+        $card = new Card($numberToken, 'JOAO DA SILVA', '123', '12', '28', 'Mastercard');
         $credit = new Credit(false, false, false, "FULL", 1, 'LOJA*TESTE*COMPRA-123', 1799, $card, 'ONE_CLICK_PAYMENT', '1002217281190421');
 
         // Setup Device
