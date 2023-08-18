@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class Shippings implements JsonSerializable 
+class Shippings implements JsonSerializable
 {
     private string $firstName;
     private string $name;
@@ -13,7 +13,8 @@ class Shippings implements JsonSerializable
     private float $shippingAmount;
     private Address $address;
 
-    public function __construct(string $firstName, string $name, string $email, string $phoneNumber, float $shippingAmount, Address $address) {
+    public function __construct(string $firstName, string $name, string $email, string $phoneNumber, float $shippingAmount, Address $address)
+    {
         $this->firstName = $firstName;
         $this->name = $name;
         $this->email = $email;
@@ -22,7 +23,8 @@ class Shippings implements JsonSerializable
         $this->address = $address;
     }
 
-    public function jsonSerialize() : mixed {
+    public function jsonSerialize(): mixed
+    {
         $data = [
             'first_name' => $this->firstName,
             'name' => $this->name,

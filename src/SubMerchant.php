@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class SubMerchant implements JsonSerializable 
+class SubMerchant implements JsonSerializable
 {
     private string $identificationCode;
     private string $documentType;
@@ -14,7 +14,8 @@ class SubMerchant implements JsonSerializable
     private string $state;
     private string $postalCode;
 
-    public function __construct(string $identificationCode, string $documentType, string $documentNumber, string $address, string $city, string $state, string $postalCode) {
+    public function __construct(string $identificationCode, string $documentType, string $documentNumber, string $address, string $city, string $state, string $postalCode)
+    {
         $this->identificationCode = $identificationCode;
         $this->documentType = $documentType;
         $this->documentNumber = $documentNumber;
@@ -24,7 +25,8 @@ class SubMerchant implements JsonSerializable
         $this->postalCode = $postalCode;
     }
 
-    public function jsonSerialize() : mixed {
+    public function jsonSerialize(): mixed
+    {
         $data = [
             'identification_code' => $this->identificationCode,
             'document_type' => $this->documentType,

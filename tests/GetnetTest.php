@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 require 'vendor/autoload.php';
 
@@ -23,12 +25,13 @@ $dotenv->load();
 #[CoversClass(Getnet::class)]
 class GetnetTest extends TestCase
 {
-    public function testCredito(){
+    public function testCredito()
+    {
         $clientId = $_ENV['CLIENT_ID'];
         $clientSecret = $_ENV['CLIENT_SECRET'];
         $enviroment = $_ENV['ENVIROMENT'];
         $sellerId = $_ENV['SELLER_ID'];
-        
+
         $getnet = new Getnet($clientId, $clientSecret, $enviroment);
 
         // Customer Data
@@ -43,14 +46,13 @@ class GetnetTest extends TestCase
         // Setup customer
         $billingAddress = new Address('Av. Brasil', '1000', 'Sala 1', 'São Geraldo', 'Porto Alegre', 'RS', 'Brasil', '90230060');
         $customer = new Customer('1086', $billingAddress, $firstName, 'da Silva', $name, $email, 'CPF', '12345678912', $phoneNumber);
-        
+
         // Setup Card / Credit
         try {
             $cardNumber = '5155901222280001';
             $response = json_decode($getnet->getToken($cardNumber, $sellerId));
             $numberToken = $response->number_token;
-        }
-        catch (\GuzzleHttp\Exception\RequestException $requestException) {
+        } catch (\GuzzleHttp\Exception\RequestException $requestException) {
             print_r($requestException->getResponse()->getBody()->getContents());
             //throw $th;
         }
@@ -67,7 +69,7 @@ class GetnetTest extends TestCase
 
         // Setup Transaction
         $transactionCard = new TransactionCard($sellerId, 100, "BRL", $order, $customer, $credit, $device, $shippings);
-        
+
         try {
             $response = $getnet->paymentAction($transactionCard);
             // print_r($response);
@@ -75,17 +77,18 @@ class GetnetTest extends TestCase
             print_r($requestException->getResponse()->getBody()->getContents());
             //throw $th;
         }
-       
+
 
         $this->assertTrue(true);
     }
 
-    public function testBoleto(){
+    public function testBoleto()
+    {
         $clientId = $_ENV['CLIENT_ID'];
         $clientSecret = $_ENV['CLIENT_SECRET'];
         $enviroment = $_ENV['ENVIROMENT'];
         $sellerId = $_ENV['SELLER_ID'];
-        
+
         $getnet = new Getnet($clientId, $clientSecret, $enviroment);
 
         // Customer Data
@@ -100,14 +103,14 @@ class GetnetTest extends TestCase
         // Setup customer
         $billingAddress = new Address('Av. Brasil', '1000', 'Sala 1', 'São Geraldo', 'Porto Alegre', 'RS', 'Brasil', '90230060');
         $customer = new Customer('1086', $billingAddress, $firstName, 'da Silva', $name, $email, 'CPF', '12345678912', $phoneNumber);
-        
+
         $now = new DateTime();
         $expirationDate = $now->add(new DateInterval('P2D'))->format('d/m/Y');
         $boleto = new Boleto('170500000019763', $expirationDate, 'Não receber após o vencimento');
 
         // Setup Transaction
         $transaction = new TransactionBoleto($sellerId, 100, "BRL", $order, $boleto, $customer);
-        
+
         try {
             $response = $getnet->paymentAction($transaction);
             // print_r($response);
@@ -118,12 +121,13 @@ class GetnetTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testPix(){
+    public function testPix()
+    {
         $clientId = $_ENV['CLIENT_ID'];
         $clientSecret = $_ENV['CLIENT_SECRET'];
         $enviroment = $_ENV['ENVIROMENT'];
         $sellerId = $_ENV['SELLER_ID'];
-        
+
         $getnet = new Getnet($clientId, $clientSecret, $enviroment);
 
         $transaction = new TransactionPix($sellerId, 100, 'BRL', 'DEV-1608748980', 'string');

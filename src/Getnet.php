@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
@@ -11,7 +11,8 @@ class Getnet
     private string $baseUrl;
     private string $debug;
 
-    public function __construct(string $clientId, string $clientSecret, string $enviroment = 'SDB', $debug = false) {
+    public function __construct(string $clientId, string $clientSecret, string $enviroment = 'SDB', $debug = false)
+    {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->debug = $debug;
@@ -19,7 +20,8 @@ class Getnet
         $this->authenticate();
     }
 
-    private function setEnviroment(string $enviroment) : void {
+    private function setEnviroment(string $enviroment): void
+    {
         switch ($enviroment) {
             case 'SDB':
                 $this->baseUrl = 'https://api-sandbox.getnet.com.br';
@@ -37,7 +39,8 @@ class Getnet
         $this->enviroment = $enviroment;
     }
 
-    private function authenticate() {
+    private function authenticate()
+    {
         $client = new \GuzzleHttp\Client();
 
         $authString = base64_encode($this->clientId . ':' . $this->clientSecret);
@@ -56,19 +59,19 @@ class Getnet
 
         $response = json_decode($response->getBody());
 
-        if ($response->access_token){
+        if ($response->access_token) {
             $this->accessToken = $response->access_token;
-        }
-        else {
+        } else {
             throw new \Exception("Erro na geração do token de acesso");
         }
     }
 
-    public function paymentAction(Transaction|TransactionCard|TransactionBoleto|TransactionPix $transaction) : string {
+    public function paymentAction(Transaction|TransactionCard|TransactionBoleto|TransactionPix $transaction): string
+    {
         $client = new \GuzzleHttp\Client();
 
         // Payment with Card
-        if (is_a($transaction, 'vinyvic\Getnet\TransactionCard')){
+        if (is_a($transaction, 'vinyvic\Getnet\TransactionCard')) {
             $response = $client->request('POST', $this->baseUrl . '/v1/payments/credit', [
                 'verify' => false,
                 'debug' => $this->debug,
@@ -80,38 +83,38 @@ class Getnet
             ]);
         }
         // Payment with Boleto
-        elseif (is_a($transaction, 'vinyvic\Getnet\TransactionBoleto')){
-            $response = $client->request('POST', $this->baseUrl. '/v1/payments/boleto', [
+        elseif (is_a($transaction, 'vinyvic\Getnet\TransactionBoleto')) {
+            $response = $client->request('POST', $this->baseUrl . '/v1/payments/boleto', [
                 'verify' => false,
                 'debug' => $this->debug,
                 'headers' => [
-                    'authorization' => "Bearer ". $this->accessToken,
+                    'authorization' => "Bearer " . $this->accessToken,
                     'content-type' => 'application/json; charset=utf-8'
                 ],
                 'json' => $transaction->jsonSerialize()
             ]);
         }
         // Payment with Pix
-        elseif (is_a($transaction, 'vinyvic\Getnet\TransactionPix')){
-            $response = $client->request('POST', $this->baseUrl. '/v1/payments/qrcode/pix', [
+        elseif (is_a($transaction, 'vinyvic\Getnet\TransactionPix')) {
+            $response = $client->request('POST', $this->baseUrl . '/v1/payments/qrcode/pix', [
                 'verify' => false,
                 'debug' => $this->debug,
                 'headers' => [
-                    'authorization' => "Bearer ". $this->accessToken,
+                    'authorization' => "Bearer " . $this->accessToken,
                     'content-type' => 'application/json; charset=utf-8',
                     'seller_id' => $transaction->getSellerId(),
                 ],
                 'json' => $transaction->jsonSerialize()
             ]);
-        }
-        else {
+        } else {
             throw new \InvalidArgumentException("O valor fornecido para 'transaction' não é válido.");
         }
 
         return $response->getBody()->getContents();
     }
 
-    public function getToken(string $cardNumber, ?string $sellerId = null, ?string $customerId = null){
+    public function getToken(string $cardNumber, ?string $sellerId = null, ?string $customerId = null)
+    {
         $client = new \GuzzleHttp\Client();
 
         $headers = [
@@ -119,7 +122,7 @@ class Getnet
             'content-type' => 'application/json; charset=utf-8',
         ];
 
-        if ($sellerId){
+        if ($sellerId) {
             $headers['seller_id'] = $sellerId;
         }
 
@@ -127,7 +130,7 @@ class Getnet
             'card_number' => $cardNumber
         ];
 
-        if ($customerId){
+        if ($customerId) {
             $json['customer_id'] = $customerId;
         }
 
@@ -141,5 +144,3 @@ class Getnet
         return $response->getBody()->getContents();
     }
 }
-
-

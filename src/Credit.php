@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class Credit implements JsonSerializable 
+class Credit implements JsonSerializable
 {
     private bool $delayed;
     private bool $preAuthorization;
@@ -17,7 +17,8 @@ class Credit implements JsonSerializable
     private ?string $credentialsOnFileType;
     private ?string $transactionId;
 
-    public function __construct(bool $delayed, bool $preAuthorization, bool $saveCardData, string $transactionType, int $numberInstallments, ?string $softDescriptor, ?int $dynamicMcc, Card $card, ?string $credentialsOnFileType = null, ?string $transactionId = null) {
+    public function __construct(bool $delayed, bool $preAuthorization, bool $saveCardData, string $transactionType, int $numberInstallments, ?string $softDescriptor, ?int $dynamicMcc, Card $card, ?string $credentialsOnFileType = null, ?string $transactionId = null)
+    {
         $this->delayed = $delayed;
         $this->preAuthorization = $preAuthorization;
         $this->saveCardData = $saveCardData;
@@ -30,7 +31,8 @@ class Credit implements JsonSerializable
         $this->transactionId = $transactionId;
     }
 
-    public function jsonSerialize() : mixed {
+    public function jsonSerialize(): mixed
+    {
         // Required Fields
         $data = [
             'delayed' => $this->delayed,

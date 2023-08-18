@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class Customer implements JsonSerializable {
+class Customer implements JsonSerializable
+{
     private string $customerId;
     private Address $billingAddress;
     private ?string $firstName;
@@ -15,7 +16,8 @@ class Customer implements JsonSerializable {
     private ?string $documentNumber;
     private ?string $phoneNumber;
 
-    public function __construct(string $customerId, Address $billingAddress, ?string $firstName = null, ?string $lastName = null, ?string $name = null, ?string $email = null, ?string $documentType = null, ?string $documentNumber = null, ?string $phoneNumber = null) {
+    public function __construct(string $customerId, Address $billingAddress, ?string $firstName = null, ?string $lastName = null, ?string $name = null, ?string $email = null, ?string $documentType = null, ?string $documentNumber = null, ?string $phoneNumber = null)
+    {
         $this->customerId = $customerId;
         $this->billingAddress = $billingAddress;
         $this->firstName = $firstName;
@@ -27,7 +29,8 @@ class Customer implements JsonSerializable {
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function jsonSerialize(): mixed {
+    public function jsonSerialize(): mixed
+    {
         // Required fields
         $data = [
             'customer_id' => $this->customerId,
@@ -35,28 +38,28 @@ class Customer implements JsonSerializable {
         ];
 
         // Optional fields
-        if ($this->firstName !== null){
+        if ($this->firstName !== null) {
             $data['first_name'] = $this->firstName;
         }
-        if ($this->lastName !== null){
+        if ($this->lastName !== null) {
             $data['last_name'] = $this->lastName;
         }
-        if ($this->name !== null){
+        if ($this->name !== null) {
             $data['name'] = $this->name;
         }
-        if ($this->email !== null){
+        if ($this->email !== null) {
             $data['email'] = $this->email;
         }
-        if ($this->documentType !== null){
+        if ($this->documentType !== null) {
             $data['document_type'] = $this->documentType;
         }
-        if ($this->documentNumber !== null){
+        if ($this->documentNumber !== null) {
             $data['document_number'] = $this->documentNumber;
         }
-        if ($this->phoneNumber !== null){
+        if ($this->phoneNumber !== null) {
             $data['phone_number'] = $this->phoneNumber;
         }
-        
+
         return $data;
     }
 }

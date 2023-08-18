@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class Address implements JsonSerializable 
+class Address implements JsonSerializable
 {
     private string $street;
     private string $number;
@@ -15,8 +15,16 @@ class Address implements JsonSerializable
     private string $country;
     private string $postalCode;
 
-    public function __construct(string $street, string $number, string $complement, string $district, string $city, 
-        string $state, string $country, string $postalCode) {  
+    public function __construct(
+        string $street,
+        string $number,
+        string $complement,
+        string $district,
+        string $city,
+        string $state,
+        string $country,
+        string $postalCode
+    ) {
         $this->street = $street;
         $this->number = $number;
         $this->complement = $complement;
@@ -27,7 +35,8 @@ class Address implements JsonSerializable
         $this->postalCode = $postalCode;
     }
 
-    public function jsonSerialize() : mixed {   
+    public function jsonSerialize(): mixed
+    {
         // Required Fields
         $data = [
             'street' => $this->street,

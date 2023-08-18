@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace vinyvic\Getnet;
 
 use JsonSerializable;
 
-class Card implements JsonSerializable 
+class Card implements JsonSerializable
 {
     private string $numberToken;
     private string $cardholderName;
@@ -13,7 +13,8 @@ class Card implements JsonSerializable
     private string $expirationMonth;
     private string $expirationYear;
 
-    public function __construct(string $numberToken, string $cardholderName, string $securityCode, string $brand, string $expirationMonth, string $expirationYear) {
+    public function __construct(string $numberToken, string $cardholderName, string $securityCode, string $brand, string $expirationMonth, string $expirationYear)
+    {
         $this->numberToken = $numberToken;
         $this->cardholderName = $cardholderName;
         $this->securityCode = $securityCode;
@@ -22,7 +23,8 @@ class Card implements JsonSerializable
         $this->expirationYear = $expirationYear;
     }
 
-    public function jsonSerialize() : mixed {
+    public function jsonSerialize(): mixed
+    {
         $data = [
             'number_token' => $this->numberToken,
             'cardholder_name' => $this->cardholderName,
