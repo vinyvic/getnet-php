@@ -143,4 +143,9 @@ class Getnet
 
         return $response->getBody()->getContents();
     }
+
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
 }
