@@ -1,18 +1,26 @@
-# getnet-php
+# Getnet-PHP 
 Integração PHP com a Plataforma Digital da Getnet E-Commerce WEB via API
 
 ## Instalação
-Em seu projeto PHP utilize o comando composer para instalar a integração. 
+Para instalar a integração em seu projeto PHP, siga os passos abaixo:
+
+1. Navegue até o diretório do seu projeto.
+2. Execute o seguinte comando usando o Composer para instalar a integração:
 
 ```bash
 composer install vinyvic/getnet-api
 ```
 
 ## Configuração
-A integração usa o DotEnv PHP library para carregar informações de autenticação, utilize o arquivo `.env.example` para criar um arquivo `.env` e configurar as variáveis da sua API.
+A integração utiliza a biblioteca DotEnv PHP para carregar informações de autenticação. Siga os passos abaixo para configurar as variáveis da API: 
+
+1. Crie um arquivo `.env` com base no arquivo `.env.example`.
+2. Preencha as seguintes variáveis no arquivo `.env`:
 
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `CLIENT_ID` | `string` | **Obrigatório**. O seu Client ID fornecido pela getnet |
 | `CLIENT_SECRET` | `string` | **Obrigatório**. O seu Client Secret fornecido pela getnet |
 | `SELLER_ID` | `string` | Código de identificação do e-commerce. |
+
+Lembre-se de sempre manter suas informações de autenticação seguras e não compartilhá-las publicamente.
