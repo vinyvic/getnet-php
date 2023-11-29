@@ -22,5 +22,6 @@ A integração utiliza a biblioteca DotEnv PHP para carregar informações de au
 | `CLIENT_ID` | `string` | **Obrigatório**. O seu Client ID fornecido pela getnet |
 | `CLIENT_SECRET` | `string` | **Obrigatório**. O seu Client Secret fornecido pela getnet |
 | `SELLER_ID` | `string` | Código de identificação do e-commerce. |
+| `PIX_TIMEOUT` | `integer` | Tempo de expiração do QR Code PIX após a geração. |
 
 Lembre-se de sempre manter suas informações de autenticação seguras e não compartilhá-las publicamente.

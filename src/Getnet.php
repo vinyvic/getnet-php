@@ -103,6 +103,7 @@ class Getnet
                     'authorization' => "Bearer " . $this->accessToken,
                     'content-type' => 'application/json; charset=utf-8',
                     'seller_id' => $transaction->getSellerId(),
+                    'x-qrcode-expiration-time' => isset($_ENV['PIX_TIMEOUT']) ? $_ENV['PIX_TIMEOUT'] : 1800,
                 ],
                 'json' => $transaction->jsonSerialize()
             ]);
